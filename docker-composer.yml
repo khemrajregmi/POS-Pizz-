@@ -1,0 +1,39 @@
+version: '3'
+services:
+  database:
+    container_name: database
+    image: postgres:16-alpine
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - default
+
+  migrator:
+    image: node:14
+    volumes:
+      - .:/src
+    working_dir: /src
+    command: sh -c "npm install && npx node-pg-migrate up"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@database/postgres
+    depends_on:
+      - database
+
+  app:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3001:3000"
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@database:5432/postgres
+    networks:
+      - default
