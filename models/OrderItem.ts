@@ -36,7 +36,7 @@ OrderItem.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    price: {
+    total_price: {
         type: DataTypes.DECIMAL,
         allowNull: false
     },

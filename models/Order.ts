@@ -15,7 +15,6 @@ export class Order extends Model {
     public order_id!: number;
     public user_id!: number; // Foreign key reference to User
     public status!: string;
-    public total_price!: number;
 
     // Association methods
     public getUser!: BelongsToGetAssociationMixin<User>;
@@ -42,10 +41,6 @@ Order.init({
     status: {
         type: DataTypes.ENUM,
         values: Object.values(OrderStatus),
-        allowNull: false
-    },
-    total_price: {
-        type: DataTypes.DECIMAL,
         allowNull: false
     },
     created_at: DataTypes.DATE,

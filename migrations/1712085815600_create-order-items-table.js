@@ -8,7 +8,7 @@ exports.up = (pgm) => {
         order_id: { type: 'integer', references: '"orders"', onDelete: 'CASCADE' },
         pizza_id: { type: 'integer', references: '"pizzas"', onDelete: 'CASCADE' },
         quantity: { type: 'integer', notNull: true },
-        price: { type: 'numeric', notNull: true },
+        total_price: { type: 'numeric', notNull: true },
         created_at: { type: 'timestamp', notNull: true, default: pgm.func('current_timestamp') },
         updated_at: { type: 'timestamp' }
     });
